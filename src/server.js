@@ -1,6 +1,10 @@
 const express = require('express');
-const { envConfig } = require('./config.js')
-const cors = require('cors')
+const { envConfig } = require('./config.js');
+const cors = require('cors');
+
+const { PrismaClient } = require('@prisma/client')
+
+const prisma = new PrismaClient()
 
 // Config
 const app = express();
@@ -14,8 +18,12 @@ app.use(cors({
 }))
 
 // Routes
-app.get('/', (req, res) => {
-  res.json({ 'msg': 'Successful response' });
+app.get('/', async (req, res) => {
+  const users = await prisma.user.findFirst()
+  res.json({
+    message: 'Successful response',
+    data: users
+  })
 });
 
 // Static Files
