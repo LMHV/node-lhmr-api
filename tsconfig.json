@@ -4,7 +4,10 @@
     "moduleResolution": "NodeNext",
     "target": "ES5",
     "sourceMap": true,
-    "outDir": "dist",
+    "outDir": "./dist",
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "esModuleInterop": true
   },
   "include": ["src/**/*"],
 }
