@@ -2,11 +2,11 @@
   "name": "lhmr-api",
   "version": "1.0.0",
   "description": "",
-  "main": "src/server.ts",
+  "main": "dist/server.js",
   "type": "module",
   "scripts": {
-    "start": "node public/server.js",
-    "build": "tsc --outDir public",
+    "start": "node dist/server.js",
+    "build": "tsc",
     "dev": "nodemon src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
