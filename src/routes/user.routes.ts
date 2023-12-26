@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction, Router } from 'express';
-import { getUsers/*, getUser, createUser, modifyUser, deleteUser, findUser*/ } from '../controllers/user.controllers.ts'
+import { getUsers/*, getUser, createUser, modifyUser, deleteUser, findUser*/ } from '../controllers/user.controllers'
 
 const router = Router();
 

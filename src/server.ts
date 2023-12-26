@@ -1,6 +1,6 @@
 import express, {Express} from 'express';
 import cors from 'cors';
-import userRoutes from './routes/user.routes.ts';
+import userRoutes from './routes/user.routes';
 
 
 // Config
