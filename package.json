@@ -5,8 +5,8 @@
   "main": "src/server.ts",
   "type": "module",
   "scripts": {
-    "start": "node build/server.js",
-    "build": "tsc --outDir build",
+    "start": "node public/server.js",
+    "build": "tsc --outDir public",
     "dev": "nodemon src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
