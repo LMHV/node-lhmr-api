@@ -17,6 +17,7 @@ app.use(cors({
 // Routes
 app.use('/api/users', userRoutes);
 
+
 // Static Files
 
 

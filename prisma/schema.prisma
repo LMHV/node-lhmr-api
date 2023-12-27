@@ -9,13 +9,12 @@ datasource db {
 }
 
 model user {
-  id                 Int      @id @default(autoincrement())
-  username           String
-  lastname           String
-  email              String
-  password           String
-  creationDate       DateTime @default(now())
-  lastActivityDate   DateTime
-  subscriptionStatus String
-  subscriptionPlan   String
+  id                 Int       @id @unique @default(autoincrement())
+  externalId         String    @unique
+  username           String    @unique
+  email              String    @unique
+  creationDate       DateTime  @default(now())
+  lastActivityDate   DateTime?
+  subscriptionStatus String?
+  subscriptionPlan   String?
 }
