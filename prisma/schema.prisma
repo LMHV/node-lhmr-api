@@ -8,13 +8,24 @@ datasource db {
   relationMode = "prisma"
 }
 
-model user {
+model User {
   id                 Int       @id @unique @default(autoincrement())
-  externalId         String    @unique
+  externalId         String    @unique   // Este Id es el que traemos desde clerk, que es tipo String 'user_2a62taYkxPYp0U1FdBDZ3GC51LH'
   username           String    @unique
   email              String    @unique
   creationDate       DateTime  @default(now())
   lastActivityDate   DateTime?
   subscriptionStatus String?
   subscriptionPlan   String?
+  Venta              Venta[]
+}
+
+model Venta {
+  id       Int      @id @unique @default(autoincrement())
+  userId   String // Utiliza este ID para relacionarlo con la tabla user.
+  user     User     @relation(fields: [userId], references: [externalId])
+  date     DateTime @default(now())
+  products Json     @db.Json
+
+  @@index([userId])
 }

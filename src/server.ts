@@ -1,6 +1,7 @@
-import express, {Express} from 'express';
+import express, { Express } from 'express';
 import cors from 'cors';
 import userRoutes from './routes/user.routes';
+import ventasRoutes from './routes/venta.routes';
 
 
 // Config
@@ -16,7 +17,7 @@ app.use(cors({
 
 // Routes
 app.use('/api/users', userRoutes);
-
+app.use('/api/ventas', ventasRoutes)
 
 // Static Files
 

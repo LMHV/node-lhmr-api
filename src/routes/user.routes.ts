@@ -1,12 +1,10 @@
 import { Request, Response, NextFunction, Router } from 'express';
-import { getUsers, createUser/*, getUser, modifyUser, deleteUser, findUser*/ } from '../controllers/user.controllers'
-import bodyParser from 'body-parser'
+import { getUsers } from '../controllers/user.controllers'
 
 const router = Router();
 
 router.get('/', getUsers)
 //router.post('/', createUser)
-router.post('/webhook', bodyParser.raw({ type: 'application/json' }), createUser)
 
 /*
 router.get('/:id', getUser)
