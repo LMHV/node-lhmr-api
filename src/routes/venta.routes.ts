@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction, Router } from 'express';
-import { createVenta } from '../controllers/venta.controller';
+import { createVenta, getAllVentas } from '../controllers/venta.controller';
 
 const router = Router();
 
-//router.get('/', getVentas)
+router.get('/', getAllVentas)
 
 router.post('/', createVenta)
 

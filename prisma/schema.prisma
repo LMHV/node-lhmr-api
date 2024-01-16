@@ -22,8 +22,8 @@ model User {
 
 model Venta {
   id       Int      @id @unique @default(autoincrement())
-  userId   String // Utiliza este ID para relacionarlo con la tabla user.
-  user     User     @relation(fields: [userId], references: [externalId])
+  userId   String? // Utiliza este ID para relacionarlo con la tabla user.
+  user     User?     @relation(fields: [userId], references: [externalId])
   date     DateTime @default(now())
   products Json     @db.Json
 
