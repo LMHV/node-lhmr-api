@@ -16,28 +16,4 @@ export const getUsers = async (req: Request, res: Response): Promise<void> => {
     }
 };
 
-export const createUser = async (req: Request, res: Response): Promise<void> => {
-    try {
-        const { externalId, username, email } = req.body;
-        //console.log(`Body: ${req.body}`)
-        // const productParsed = products as Prisma.JsonObject
-        const user = await prisma.user.create({
-            data: {
-                externalId,
-                username,
-                email,
-                subscriptionStatus: 'No Abonado',
-                subscriptionPlan: 'Sin plan',
-            }
-        })
-        res.status(200).json({
-            message: 'Successful response',
-            data: user,
-        });
-    } catch (error: any) {
-        res.status(500).json({
-            message: 'Test',
-            error: error.message
-        });
-    }
-};
+

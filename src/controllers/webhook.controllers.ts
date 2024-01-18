@@ -1,6 +1,10 @@
 import { Webhook, WebhookRequiredHeaders } from 'svix';
-import { WebhookEvent } from '@clerk/clerk-sdk-node';
+import { Request, Response } from 'express';
+import { UserJSON, WebhookEvent } from '@clerk/clerk-sdk-node';
 import { IncomingHttpHeaders } from 'http';
+import { PrismaClient, Prisma } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 class WebhookController {
 
@@ -13,19 +17,34 @@ class WebhookController {
       const wh = new Webhook(process.env.CLERK_WEBHOOK_SECRET_KEY!);
       const evt = wh.verify(payloadString, svixHeaders as IncomingHttpHeaders & WebhookRequiredHeaders) as WebhookEvent;
 
-      console.log(evt)
-      console.log(evt.data)
       const { id, ...attributes } = evt.data;
-      // Handle the webhooks
+
       const eventType = evt.type;
       if (eventType === 'user.created') {
-        console.log(`User ${id} was ${eventType}`);
-        console.log(attributes);
+        const { first_name, username, email_addresses } = attributes as UserJSON;
+
+        // console.log(`User ${id} was ${eventType}`);
+        // console.log(`Nombre: ${first_name}, Username: ${username}, Email: ${email_addresses[0].email_address}`)
+
+        try {
+          await prisma.user.create({
+            data: {
+              externalId: id!,
+              username: first_name ?? username,
+              email: email_addresses[0].email_address,
+              subscriptionStatus: 'No Abonado',
+              subscriptionPlan: 'Sin plan',
+            }
+          })
+        } catch (error: any) {
+          console.error(error.message)
+        }
       }
+
 
       res.status(200).json({
         success: true,
-        message: 'Webhook received',
+        message: `Webhook received, event type ${evt.type}`,
       });
     } catch (err: any) {
       res.status(400).json({
