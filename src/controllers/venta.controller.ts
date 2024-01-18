@@ -47,12 +47,7 @@ export const getAllVentas = async (req: Request, res: Response): Promise<void> =
 export const createVenta = async (req: Request, res: Response): Promise<void> => {
     try {
         const { userId, products } = req.body;
-        console.log(`Body: ${req.body}`)
-        console.log(`userId: ${userId}`)
-        console.log(`products: ${products}`)
-
-        const productParsed = products as Prisma.JsonObject
-        console.log(`Parsed: ${productParsed}`)
+        // const productParsed = products as Prisma.JsonObject
 
         const venta = await prisma.venta.create({
             data: {
