@@ -1,7 +1,7 @@
 import express, { Express } from 'express';
 import cors from 'cors';
 import userRoutes from './routes/user.routes';
-import ventasRoutes from './routes/venta.routes';
+import saleRoutes from './routes/sale.routes';
 import webhookRoutes from './routes/webhook.routes';
 
 import bodyParser from 'body-parser';
@@ -21,7 +21,7 @@ app.use(cors({
 
 // Routes
 app.use('/api/users', userRoutes);
-app.use('/api/ventas', ventasRoutes)
+app.use('/api/sales', saleRoutes)
 
 
 

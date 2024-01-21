@@ -24,7 +24,7 @@ class WebhookController {
         const { username, email_addresses } = attributes as UserJSON;
 
         // console.log(`User ${id} was ${eventType}`);
-        console.log(`Id: ${id}, Username: ${username}, Email: ${email_addresses[0].email_address}`)
+        //console.log(`Id: ${id}, Username: ${username}, Email: ${email_addresses[0].email_address}`)
 
         try {
           await prisma.user.create({
