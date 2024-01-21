@@ -4,17 +4,17 @@ const prisma = new PrismaClient();
 
 export const getAllSales = async (req: Request, res: Response): Promise<void> => {
     try {
-        const ventas = await prisma.sale.findMany()
+        const sales = await prisma.sale.findMany()
 
-        if (!ventas) {
-            res.status(404).json({
-                message: 'No hay ventas'
+        if (!sales.length) {
+            res.status(200).json({
+                message: 'Petición exitosa. No se encontraron ventas.'
             })
         }
 
         res.status(200).json({
-            ventas,
-            message: 'Successful response'
+            sales,
+            message: 'Petición exitosa.'
         })
     } catch (error: any) {
         res.status(500).json({
@@ -27,22 +27,22 @@ export const getSalesByUserId = async (req: Request, res: Response): Promise<voi
     try {
         const userId = req.params.userId
         console.log(userId)
-        const ventas = await prisma.sale.findMany({
+        const sales = await prisma.sale.findMany({
             where: {
                 userId
             }
         })
-        console.log(ventas)
+        console.log(sales)
 
-        if (!ventas) {
+        if (!sales.length) {
             res.status(200).json({
-                message: 'No hay ventas para dicho usuario'
+                message: 'Petición exitosa. No se encontraron ventas para el usuario.'
             })
         }
 
         res.status(200).json({
-            ventas,
-            message: 'Successful response'
+            sales,
+            message: 'Petición exitosa.'
         })
     } catch (error: any) {
         res.status(500).json({
@@ -55,24 +55,24 @@ export const getRecentSalesByUserId = async (req: Request, res: Response): Promi
     try {
         const userId = req.params.userId
         console.log(userId)
-        const ventas = await prisma.sale.findMany({
+        const sales = await prisma.sale.findMany({
             where: {
                 userId
             },
             orderBy: { date: 'desc' },
             take: 10
         })
-        console.log(ventas)
+        console.log(sales)
 
-        if (!ventas) {
+        if (!sales.length) {
             res.status(200).json({
-                message: 'No hay ventas para dicho usuario'
+                message: 'Petición exitosa. Usuario sin ventas recientes.'
             })
         }
 
         res.status(200).json({
-            ventas,
-            message: 'Successful response'
+            sales,
+            message: 'Petición exitosa.'
         })
     } catch (error: any) {
         res.status(500).json({
@@ -84,21 +84,21 @@ export const getRecentSalesByUserId = async (req: Request, res: Response): Promi
 export const createSale = async (req: Request, res: Response): Promise<void> => {
     try {
         const { userId, products } = req.body;
-        // const productParsed = products as Prisma.JsonObject
 
-        const venta = await prisma.sale.create({
+        const sales = await prisma.sale.create({
             data: {
                 userId,
                 products,
             }
         })
+
         res.status(200).json({
-            message: 'Successful response',
-            data: venta,
+            message: 'Petición exitosa. Venta creada.',
+            data: sales,
         });
     } catch (error: any) {
         res.status(500).json({
-            message: 'Test',
+            message: 'Error al intentar crear venta.',
             error: error.message
         });
     }

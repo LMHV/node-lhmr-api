@@ -6,8 +6,14 @@ const prisma = new PrismaClient();
 export const getUsers = async (req: Request, res: Response): Promise<void> => {
     try {
         const users = await prisma.user.findMany();
+
+        if (!users.length){
+            res.status(200).json({
+                message: 'Petición exitosa. No se encontraron usuarios.'
+            })
+        }
         res.json({
-            message: 'Successful response',
+            message: 'Petición exitosa.',
             data: users,
         });
     } catch (error: any) {

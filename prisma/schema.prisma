@@ -40,5 +40,6 @@ model Product {
   measurementUnits String
   stock            Float
 
+  @@unique([userId, productName]) // Supuestamente con esto haces que la combinacion de los dos sea unica, pero parece que no funciona.
   @@index([userId])
 }

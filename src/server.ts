@@ -1,10 +1,11 @@
 import express, { Express } from 'express';
 import cors from 'cors';
+import bodyParser from 'body-parser';
+
 import userRoutes from './routes/user.routes';
 import saleRoutes from './routes/sale.routes';
 import webhookRoutes from './routes/webhook.routes';
-
-import bodyParser from 'body-parser';
+import productRoutes from './routes/product.routes';
 
 // Config
 const app: Express = express();
@@ -21,12 +22,10 @@ app.use(cors({
 
 // Routes
 app.use('/api/users', userRoutes);
-app.use('/api/sales', saleRoutes)
-
-
+app.use('/api/sales', saleRoutes);
+app.use('/api/products', productRoutes);
 
 // Static Files
-
 
 // Running..
 app.listen(app.get('port'), () => console.log(`Server on: ${app.get('port')}`))
