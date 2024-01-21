@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 
 export const getAllSales = async (req: Request, res: Response): Promise<void> => {
     try {
-        const ventas = await prisma.venta.findMany()
+        const ventas = await prisma.sale.findMany()
 
         if (!ventas) {
             res.status(404).json({
@@ -27,7 +27,7 @@ export const getSalesByUserId = async (req: Request, res: Response): Promise<voi
     try {
         const userId = req.params.userId
         console.log(userId)
-        const ventas = await prisma.venta.findMany({
+        const ventas = await prisma.sale.findMany({
             where: {
                 userId
             }
@@ -55,7 +55,7 @@ export const getRecentSalesByUserId = async (req: Request, res: Response): Promi
     try {
         const userId = req.params.userId
         console.log(userId)
-        const ventas = await prisma.venta.findMany({
+        const ventas = await prisma.sale.findMany({
             where: {
                 userId
             },
@@ -86,7 +86,7 @@ export const createSale = async (req: Request, res: Response): Promise<void> => 
         const { userId, products } = req.body;
         // const productParsed = products as Prisma.JsonObject
 
-        const venta = await prisma.venta.create({
+        const venta = await prisma.sale.create({
             data: {
                 userId,
                 products,

@@ -10,22 +10,35 @@ datasource db {
 
 model User {
   id                 Int       @id @unique @default(autoincrement())
-  externalId         String    @unique   // Este Id es el que traemos desde clerk, que es tipo String 'user_2a62taYkxPYp0U1FdBDZ3GC51LH'
+  externalId         String    @unique // Este Id es el que traemos desde clerk, que es tipo String 'user_2a62taYkxPYp0U1FdBDZ3GC51LH'
   username           String    @unique
   email              String    @unique
   creationDate       DateTime  @default(now())
   lastActivityDate   DateTime?
   subscriptionStatus String?
   subscriptionPlan   String?
-  Venta              Venta[]
+  Sale               Sale[]
+  Product            Product[]
 }
 
-model Venta {
+model Sale {
   id       Int      @id @unique @default(autoincrement())
   userId   String? // Utiliza este ID para relacionarlo con la tabla user.
-  user     User?     @relation(fields: [userId], references: [externalId])
+  user     User?    @relation(fields: [userId], references: [externalId])
   date     DateTime @default(now())
   products Json     @db.Json
+
+  @@index([userId])
+}
+
+model Product {
+  id               Int     @id @unique @default(autoincrement())
+  userId           String?
+  user             User?   @relation(fields: [userId], references: [externalId])
+  productName      String
+  price            Float
+  measurementUnits String
+  stock            Float
 
   @@index([userId])
 }
