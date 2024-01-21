@@ -18,6 +18,7 @@ export const getProductsByUserId = async (req: Request, res: Response): Promise<
       res.status(200).json({
         message: 'Petición exitosa. No se encontraron productos para dicho usuario.'
       })
+      return;
     }
 
     res.status(200).json({

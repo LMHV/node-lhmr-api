@@ -10,6 +10,7 @@ export const getAllSales = async (req: Request, res: Response): Promise<void> =>
             res.status(200).json({
                 message: 'Petición exitosa. No se encontraron ventas.'
             })
+            return;
         }
 
         res.status(200).json({
@@ -26,18 +27,17 @@ export const getAllSales = async (req: Request, res: Response): Promise<void> =>
 export const getSalesByUserId = async (req: Request, res: Response): Promise<void> => {
     try {
         const userId = req.params.userId
-        console.log(userId)
         const sales = await prisma.sale.findMany({
             where: {
                 userId
             }
         })
-        console.log(sales)
 
         if (!sales.length) {
             res.status(200).json({
                 message: 'Petición exitosa. No se encontraron ventas para el usuario.'
-            })
+            });
+            return;
         }
 
         res.status(200).json({
@@ -54,7 +54,6 @@ export const getSalesByUserId = async (req: Request, res: Response): Promise<voi
 export const getRecentSalesByUserId = async (req: Request, res: Response): Promise<void> => {
     try {
         const userId = req.params.userId
-        console.log(userId)
         const sales = await prisma.sale.findMany({
             where: {
                 userId
@@ -62,12 +61,12 @@ export const getRecentSalesByUserId = async (req: Request, res: Response): Promi
             orderBy: { date: 'desc' },
             take: 10
         })
-        console.log(sales)
 
         if (!sales.length) {
             res.status(200).json({
                 message: 'Petición exitosa. Usuario sin ventas recientes.'
             })
+            return;
         }
 
         res.status(200).json({

@@ -11,6 +11,7 @@ export const getUsers = async (req: Request, res: Response): Promise<void> => {
             res.status(200).json({
                 message: 'Petición exitosa. No se encontraron usuarios.'
             })
+            return;
         }
         res.json({
             message: 'Petición exitosa.',
