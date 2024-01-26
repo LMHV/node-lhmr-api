@@ -105,9 +105,19 @@ export const createSale = async (req: Request, res: Response): Promise<void> => 
 
 
 export const deleteSale = async (req: Request, res: Response): Promise<void> => {
-    console.log('llega?')
     try {
         const { userId, saleId } = req.params;
+        const sale = await prisma.sale.findFirst({
+            where: {
+                id: parseInt(saleId)
+            }
+        })
+        if(!sale) {
+            res.status(404).json({
+                message: 'No se encontró venta'
+            })
+            return;
+        }
 
         const deletedSale = await prisma.sale.delete({
             where: {
@@ -120,6 +130,7 @@ export const deleteSale = async (req: Request, res: Response): Promise<void> => 
             data: deletedSale,
         });
     } catch (error: any) {
+        console.log('test')
         res.status(500).json({
             message: 'Error al intentar eliminar venta.',
             error: error.message
