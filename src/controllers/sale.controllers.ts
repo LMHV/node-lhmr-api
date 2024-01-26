@@ -59,7 +59,7 @@ export const getRecentSalesByUserId = async (req: Request, res: Response): Promi
                 userId
             },
             orderBy: { date: 'desc' },
-            take: 10
+            take: 100
         })
 
         if (!sales.length) {
@@ -98,6 +98,30 @@ export const createSale = async (req: Request, res: Response): Promise<void> => 
     } catch (error: any) {
         res.status(500).json({
             message: 'Error al intentar crear venta.',
+            error: error.message
+        });
+    }
+};
+
+
+export const deleteSale = async (req: Request, res: Response): Promise<void> => {
+    console.log('llega?')
+    try {
+        const { userId, saleId } = req.params;
+
+        const deletedSale = await prisma.sale.delete({
+            where: {
+                userId,
+                id: parseInt(saleId),
+            }
+        })
+        res.status(200).json({
+            message: 'Petición exitosa. Venta eliminada.',
+            data: deletedSale,
+        });
+    } catch (error: any) {
+        res.status(500).json({
+            message: 'Error al intentar eliminar venta.',
             error: error.message
         });
     }
