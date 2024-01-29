@@ -30,7 +30,8 @@ export const getSalesByUserId = async (req: Request, res: Response): Promise<voi
         const sales = await prisma.sale.findMany({
             where: {
                 userId
-            }
+            },
+            orderBy: { date: 'desc' },
         })
 
         if (!sales.length) {
@@ -112,7 +113,7 @@ export const deleteSale = async (req: Request, res: Response): Promise<void> => 
                 id: parseInt(saleId)
             }
         })
-        if(!sale) {
+        if (!sale) {
             res.status(404).json({
                 message: 'No se encontró venta'
             })
