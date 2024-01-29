@@ -33,10 +33,10 @@ export const getSalesByUserId = async (req: Request, res: Response): Promise<voi
             },
             orderBy: { date: 'desc' },
         })
-
         if (!sales.length) {
             res.status(200).json({
-                message: 'Petición exitosa. No se encontraron ventas para el usuario.'
+                message: 'Petición exitosa. No se encontraron ventas para el usuario.',
+                sales: []
             });
             return;
         }
